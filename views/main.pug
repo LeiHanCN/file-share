@@ -23,5 +23,5 @@ block content
           .date #{file.lastModify}
     .upload-btn
     form(action='/upload', id='upload-form', method='post', encType='multipart/form-data')
-      input(type="file", id="upload-input", name="fileList")
+      input(type="file", id="upload-input", name="fileList", multiple='true')
     script(src='/js/main.js')
