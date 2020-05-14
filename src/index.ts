@@ -6,12 +6,22 @@ import bodyParser from 'body-parser';
 import os from 'os';
 import chalk from 'chalk';
 import fileUpload from 'express-fileupload';
+import ncp from 'ncp'
 import routes from './routes';
 import { exportPort, filePath, PUBLIC_PATH, publicResourceList, shareDir, VIEW_PATH } from './config';
 import { getCommonLogString } from './utils/log';
 import { resolve } from 'path';
 
 const app = Express();
+
+// copy js
+ncp(resolve('./views/js/'), resolve('./public/js/'), err => {
+    if (err) {
+        console.error(err);
+        return
+    }
+    console.log('完成 JS 文件复制')
+})
 
 // network
 const ips = os.networkInterfaces();
