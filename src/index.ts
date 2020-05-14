@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import os from 'os';
 import chalk from 'chalk';
+import fileUpload from 'express-fileupload';
 import routes from './routes';
 import { exportPort, filePath, PUBLIC_PATH, publicResourceList, shareDir, VIEW_PATH } from './config';
 import { getCommonLogString } from './utils/log';
@@ -49,6 +50,9 @@ app.use(stylus.middleware({
   compress: true,
 }));
 app.use(Express.static(PUBLIC_PATH));
+app.use(fileUpload({
+    createParentPath: true
+}))
 
 // pages
 app.use('/', routes);
