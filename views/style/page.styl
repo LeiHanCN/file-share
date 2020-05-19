@@ -71,3 +71,74 @@ row-icon-mixin() {
     }
   }
 }
+
+.upload-modal
+  position fixed
+  left 0
+  top 0
+  right 0
+  bottom 0
+  z-index -1
+  width 100vw
+  height 100vh
+  background-color rgba(255, 255, 255, 0)
+  transition all ease-in-out 300ms
+  pointer-events none
+
+  @keyframes borderRadius {
+    to {
+      border-radius 30px
+    }
+  }
+
+  &::before
+    content ''
+    border 1px dashed #000
+    border-radius 50%
+    width 48px
+    height 48px
+    position fixed
+    left calc(100vw - 80px)
+    top calc(100vh - 80px)
+    transition left ease-in-out 300ms ,top ease-in-out 300ms, height ease-in-out 300ms, width ease-in-out 300ms, margin ease-in-out 300ms
+    transform rotate(360deg)
+
+  &::after
+    content ''
+    height 100vh
+    width 100vw
+    position fixed
+    display flex
+    align-items center
+    justify-content center
+    font-size 30px
+    color grey
+    font-style italic
+
+  &.drag-over
+    z-index 1
+    background-color rgba(255, 255, 255, 0.9)
+
+    &::before
+      margin 30px
+      height calc(100vh - 60px)
+      width calc(100vw - 60px)
+      left 0
+      top 0
+      animation borderRadius linear 50ms forwards
+
+    &::after
+      content: '来 ～ 搁这儿放'
+
+  &.drag-exit
+    @keyframes exit {
+      from {
+        transform rotate(0)
+      }
+      to {
+        transform rotate(360deg)
+      }
+    }
+    &::before
+      animation borderRadius linear 50ms 300ms forwards, exit ease-in-out 300ms 300ms
+
