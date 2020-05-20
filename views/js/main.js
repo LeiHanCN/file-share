@@ -20,6 +20,7 @@ function upload() {
 }
 
 const uploadModal = document.getElementsByClassName('upload-modal')[0]
+const uploadArea = document.getElementsByClassName('upload-area')[0]
 let exitedTimer
 window.addEventListener('dragenter', e => {
   clearTimeout(exitedTimer)
@@ -27,7 +28,7 @@ window.addEventListener('dragenter', e => {
   uploadModal.classList.add('drag-over')
 })
 
-uploadModal.addEventListener('dragleave', ev => {
+window.addEventListener('dragleave', ev => {
   if (!uploadModal.classList.contains('drag-over')) {
     return;
   }
@@ -40,13 +41,17 @@ uploadModal.addEventListener('dragleave', ev => {
     uploadModal.classList.remove('drag-exit', 'drag-over')
   }, 1000)
 })
-uploadModal.addEventListener('dragover', e => {
-  e.dataTransfer.dropEffect = 'copy';
+
+window.addEventListener('dragover', e => {
   e.preventDefault();
-  e.stopPropagation();
-})
-uploadModal.addEventListener('drop', e => {
-  uploadModal.dispatchEvent(new Event('dragleave'))
+  e.dataTransfer.dropEffect = 'copy';
+
+}, false)
+
+window.addEventListener('drop', e => {
+  console.log(e.dataTransfer)
+  uploadInput.files = e.dataTransfer.files
+  window.dispatchEvent(new Event('dragleave'))
   e.preventDefault();
   e.stopPropagation();
 })

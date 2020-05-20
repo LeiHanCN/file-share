@@ -2,7 +2,6 @@ extends ./component/layout
 
 block content
   body
-    .upload-modal
     .toolbar
       h3 Click file name to download
     .file-table
@@ -23,6 +22,8 @@ block content
           .size #{file.size}
           .date #{file.lastModify}
     .upload-btn
+    .upload-modal
+      .upload-area 来 ～ 搁这儿放️
     form(action='/upload', id='upload-form', method='post', encType='multipart/form-data')
       input(type="file", id="upload-input", name="fileList", multiple='true')
     script(src='/js/main.js')
