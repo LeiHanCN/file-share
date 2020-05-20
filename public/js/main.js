@@ -1,4 +1,3 @@
-
 const uploadForm = document.getElementById('upload-form');
 const uploadInput = document.getElementById('upload-input');
 document.getElementsByClassName('upload-btn')[0].addEventListener('click', () => {
@@ -28,7 +27,7 @@ window.addEventListener('dragenter', e => {
   uploadModal.classList.add('drag-over')
 })
 
-window.addEventListener('dragleave', ev => {
+uploadArea.addEventListener('dragleave', ev => {
   if (!uploadModal.classList.contains('drag-over')) {
     return;
   }
@@ -42,16 +41,34 @@ window.addEventListener('dragleave', ev => {
   }, 1000)
 })
 
-window.addEventListener('dragover', e => {
+uploadArea.addEventListener('dragover', e => {
   e.preventDefault();
   e.dataTransfer.dropEffect = 'copy';
-
 }, false)
 
-window.addEventListener('drop', e => {
-  console.log(e.dataTransfer)
-  uploadInput.files = e.dataTransfer.files
+uploadArea.addEventListener('drop', ev => {
   window.dispatchEvent(new Event('dragleave'))
-  e.preventDefault();
-  e.stopPropagation();
+  ev.preventDefault();
+  ev.stopPropagation();
+  const files = []
+
+  if (ev.dataTransfer.items) {
+    // Use DataTransferItemList interface to access the file(s)
+    for (var i = 0; i < ev.dataTransfer.items.length; i++) {
+      // If dropped items aren't files, reject them
+      if (ev.dataTransfer.items[i].kind === 'file') {
+        var file = ev.dataTransfer.items[i].getAsFile();
+        console.log('... file[' + i + '].name = ' + file.name);
+        files.push(file);
+      }
+    }
+  } else {
+    // Use DataTransfer interface to access the file(s)
+    for (var i = 0; i < ev.dataTransfer.files.length; i++) {
+      var file = ev.dataTransfer.files[i]
+      files.push(file)
+    }
+  }
+  uploadInput.files = ev.dataTransfer.files
+  upload()
 })

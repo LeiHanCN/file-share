@@ -72,6 +72,12 @@ row-icon-mixin() {
   }
 }
 
+.upload-area2
+  border 1px dashed #000
+  border-radius 30px
+  width 80%
+  height 80%
+
 .upload-modal
   position fixed
   left 0
@@ -83,7 +89,6 @@ row-icon-mixin() {
   height 100vh
   background-color rgba(255, 255, 255, 0)
   transition all ease-in-out 300ms
-  pointer-events none
 
   @keyframes enter {
     to {
@@ -98,8 +103,8 @@ row-icon-mixin() {
     height 50px
     position fixed
     left calc(100vw - 80px)
-    top calc(100vh - 90px)
-    transition left ease-in-out 100ms ,top ease-in-out 100ms, height ease-in-out 100ms, width ease-in-out 100ms, margin ease-in-out 100ms
+    top calc(100vh - 80px)
+    transition left ease-in-out 300ms ,top ease-in-out 300ms, height ease-in-out 300ms, width ease-in-out 300ms, margin ease-in-out 100ms
     transform rotate(360deg)
     display flex
     align-items center
